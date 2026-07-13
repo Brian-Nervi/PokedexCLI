@@ -23,9 +23,11 @@ func main() {
 	}
 	for {
 		fmt.Print("Pokedex > ")
-		Scanner.Scan() // waits for input
-		input := Scanner.Text()
-		inputSlice := cleanInput(input) // separate the input into individuals strings in a slice
+		Scanner.Scan()                           // waits for input
+		input := Scanner.Text()                  //captures input
+		cfg.history = append(cfg.history, input) //adds the input to the history
+		cfg.historyIndex = len(cfg.history)      //resets to max index number
+		inputSlice := cleanInput(input)          // separate the input into individuals strings in a slice
 		if len(inputSlice) == 0 {
 			continue
 		}
@@ -100,6 +102,8 @@ type config struct {
 	previousUrl   *string
 	cache         pokecache.Cache
 	caughtPokemon map[string]Pokemon
+	history       []string
+	historyIndex  int
 }
 
 type LocationAreaResponse struct {
